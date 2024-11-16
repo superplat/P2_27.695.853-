@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/stylesheets/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> 
+</head>
+<body>
+  <header>
+    <h1><%= title %></h1>
+  </header>
+
+  <main>
+    
+    <section class="equipos">
+      
+      <h2>Alquila tus equipos ahora y Beneficiate
+        <p>- Equipos profesionales para todo tipo de eventos</p>
+      - Alquilar es una prueba antes de comprar
+  
+      <p>- Evita el coste de mantenimiento y servicio técnico</p>
+      <p>- No es necesario invertir mucho para alquilar el equipo audiovisual</p>
+        
+
+      </h2>
+    
+      
+      
+     
+      
+      
+      <!-- sonido -->
+      <div class="equipo">
+        <img src="/images/sonido.jpg" alt="Equipo de Sonido">
+        <h3>Equipo de Sonido</h3>
+        <p>Equipo de sonido profesionales para todo tipo de eventos.</p>
+        <button class="add-to-cart" data-product="Sonido" data-price="150">Añadir al carrito</button>
+      </div>
+
+      <!-- video beam-->
+      <div class="equipo">
+        <img src="/images/proyector.jpg" alt="Proyector">
+        <h3>Proyector</h3>
+        <p>Proyectores para presentaciones y conferencias.</p>
+        <button class="add-to-cart" data-product="Proyector" data-price="100">Añadir al carrito</button>
+      </div>
+
+      <!-- Luces -->
+      <div class="equipo">
+        <img src="/images/luces.jpg" alt="Luces para Eventos">
+        <h3>Luces para Eventos</h3>
+        <p>Iluminación profesional para todo tipo de eventos.</p>
+        <button class="add-to-cart" data-product="Luces" data-price="120">Añadir al carrito</button>
+      </div>
+
+      <!-- pantalla -->
+      <div class="equipo">
+        <img src="/images/pantalla-led.jpg" alt="Pantalla LED">
+        <h3>Pantalla LED</h3>
+        <p>Pantallas LED de alta resolución para presentaciones o conciertos.</p>
+        <button class="add-to-cart" data-product="Pantalla LED" data-price="200">Añadir al carrito</button>
+      </div>
+
+      <!-- camara -->
+      <div class="equipo">
+        <img src="/images/camara-profesional.jpg" alt="Cámara Profesional">
+        <h3>Cámara Profesional</h3>
+        <p>Camaras de alta definición para grabación de eventos.</p>
+        <button class="add-to-cart" data-product="Cámara Profesional" data-price="300">Añadir al carrito</button>
+      </div>
+
+      <!-- micro -->
+      <div class="equipo">
+        <img src="/images/microfono-inalambrico.jpg" alt="Micrófono Inalámbrico">
+        <h3>Micrófono Inalámbrico</h3>
+        <p>Micrófonos inalámbricos de alta calidad para conferencias y eventos.</p>
+        <button class="add-to-cart" data-product="Micrófono Inalámbrico" data-price="50">Añadir al carrito</button>
+      </div>
+
+      <!-- mesas y silla -->
+      <div class="equipo">
+        <img src="/images/mesas.jpg" alt="Mesas y Sillas">
+        <h3>Mesas y Sillas</h3>
+        <p>Mesas y Sillas para auditorios y salas grandes.</p>
+        <button class="add-to-cart" data-product="Mesas y Sillas" data-price="180">Añadir al carrito</button>
+      </div>
+
+      <!-- tarima -->
+      <div class="equipo">
+        <img src="/images/tarima.jpg" alt="Tarima y Escenario">
+        <h3>Tarima y Escenario</h3>
+        <p>Tarima y escenario para eventos al aire libre o interiores.</p>
+        <button class="add-to-cart" data-product="Tarima y Escenario" data-price="250">Añadir al carrito</button>
+      </div>
+
+    </section>
+
+    
+    <section id="cart">
+      <h2>Carrito de Compras</h2>
+      <ul id="cart-items"></ul>
+      <p id="cart-total">Total: $0</p>
+      <button id="checkout">Proceder al pago</button>
+    </section>
+    
+    <section id="contact">
+      <h2>Contacto</h2>
+      <p>Si tienes alguna pregunta o deseas obtener más información, no dudes en contactarnos.</p>
+
+     
+  
+     
+      <p><strong>Correo Electrónico:</strong> hectorarevalop16@gmail.com</p>
+      <p><strong>Teléfono:</strong> +58 424 0000</p>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>&copy; 2024 Created by Hector Arevalo</p>
+  </footer>
+
+  <script src="/javascripts/cart.js"></script> 
+</body>
+</html>

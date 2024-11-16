@@ -1,0 +1,144 @@
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
+}
+
+header {
+  background-color: #333;
+  color: white;
+  text-align: center;
+  padding: 20px;
+}
+
+main {
+  padding: 20px;
+}
+
+.equipos {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+ 
+.equipo {
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  padding: 15px;
+}
+
+.equipo img {
+  width: 100%;
+  height: auto;
+  border-bottom: 2px solid #ddd;
+}
+
+.equipo h3 {
+  font-size: 1.5em;
+  margin: 15px 0;
+}
+
+.equipo p {
+  font-size: 1em;
+  color: #555;
+  padding: 0 10px;
+}
+
+.equipo button {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1em;
+  margin-top: 10px;
+}
+
+.equipo button:hover {
+  background-color: #218838;
+}
+
+footer {
+  background-color: #333;
+  color: white;
+  text-align: center;
+  padding: 10px;
+  margin-top: 30px;
+}
+
+
+@media screen and (max-width: 1024px) {
+  .equipos {
+    grid-template-columns: repeat(2, 1fr);  
+  }
+}
+
+
+@media screen and (max-width: 768px) {
+  .equipos {
+    grid-template-columns: 1fr;  
+  }
+}
+
+
+button {
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+  background-color: #218838;
+  transform: translateY(-2px); 
+}
+
+
+.equipo img {
+  object-fit: cover;  
+  height: 200px;  
+}
+
+
+.equipo h3 {
+  font-size: 1.4em;
+  margin: 15px 0;
+}
+
+
+.equipo {
+  border: 1px solid #ddd;
+  transition: transform 0.2s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.equipo:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+.equipo p {
+  font-size: 1em;
+  color: #555;
+  margin-bottom: 15px;
+}
+
+
+.equipo button {
+  padding: 12px 18px;
+  font-size: 1.1em;
+  margin-top: 10px;
+  border-radius: 4px;
+  background-color: #007bff;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+.equipo button:hover {
+  background-color: #0056b3;
+}
+
