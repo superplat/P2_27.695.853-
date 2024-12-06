@@ -107,14 +107,29 @@
     
     <section id="contact">
       <h2>Contacto</h2>
-      <p>Si tienes alguna pregunta o deseas obtener más información, no dudes en contactarnos.</p>
-
-     
-  
-     
+      <p>Si tienes alguna pregunta o deseas obtener más información, no dudes en contactarnos mediante el siguiente formulario.</p>
+    
+      <!-- Formulario de contacto -->
+      <div class="form-container">
+        <form action="/add_contact" method="post">
+          <label for="email">Correo Electrónico:</label>
+          <input type="email" id="email" name="email" placeholder="Tu correo electrónico" required>
+        
+          <label for="nombre">Nombre:</label>
+          <input type="text" id="nombre" name="nombre" placeholder="Tu nombre completo" required>
+        
+          <label for="comentario">Comentario:</label>
+          <textarea id="comentario" name="comentario" placeholder="Escribe tu comentario aquí..." rows="4" required></textarea>
+        
+          <button type="submit">Enviar</button>
+        </form>
+        
+      </div>
+    
       <p><strong>Correo Electrónico:</strong> hectorarevalop16@gmail.com</p>
       <p><strong>Teléfono:</strong> +58 424 0000</p>
     </section>
+    
 
   </main>
 

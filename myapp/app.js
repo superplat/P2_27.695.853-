@@ -7,6 +7,10 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
+
+var ContactosModel = require('./models/ContactosModel');
+var db = new ContactosModel(); 
+
 var app = express();
 
 // view engine setup
@@ -22,13 +26,35 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
+// nueva ruta para manejar el formulario de contacto
+app.post('/add_contact', async (req, res) => {
+  const { email, nombre, comentario } = req.body;
+  const ip = req.ip; // Dirección ip
+  if (!email || !nombre || !comentario) {
+    return res.status(400).send('Por favor, completa todos los campos.');
+  }
+
+  try {
+    await db.addContact(email, nombre, comentario, ip); // Guardar datos en la base de datos
+    res.redirect('/success'); // Redirigir a la página de confirmación
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Error al guardar los datos.');
+  }
+});
+
+// ágina de confirmación
+app.get('/success', (req, res) => {
+  res.render('success'); // Renderizar vista de confirmación
+});
+
+// 404 error catch
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
@@ -36,9 +62,8 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-
-var port = process.env.PORT || 3000; 
-app.listen(port, function() {
+var port = process.env.PORT || 3000;
+app.listen(port, function () {
   console.log(`Servidor en ejecución en el puerto ${port}`);
 });
 
