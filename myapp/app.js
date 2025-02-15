@@ -210,7 +210,7 @@ createAdmin().catch((err) => console.error('Error al crear el usuario admin:', e
   passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: process.env.GOOGLE_CALLBACK_URL  || 'https://p2-27-695-853-1.onrender.com/auth/google/callback'
+    callbackURL: process.env.GOOGLE_CALLBACK_URL  
   },
   (accessToken, refreshToken, profile, done) => {
     db.get('SELECT * FROM users WHERE googleId = ?', [profile.id], (err, user) => {
