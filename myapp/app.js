@@ -19,6 +19,10 @@
 
   const app = express();
 
+  // Configuración de trust proxy (agrega esto aquí)
+app.set('trust proxy', 1); // Confía en el primer proxy
+
+
   const baseURL = process.env.BASE_URL || 'http://localhost:3000';
 
 
@@ -210,7 +214,7 @@ createAdmin().catch((err) => console.error('Error al crear el usuario admin:', e
   passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: process.env.GOOGLE_CALLBACK_URL  
+    callbackURL: process.env.GOOGLE_CALLBACK_URL  || 'http://localhost:3000/auth/google/callback'
   },
   (accessToken, refreshToken, profile, done) => {
     db.get('SELECT * FROM users WHERE googleId = ?', [profile.id], (err, user) => {
@@ -323,6 +327,8 @@ app.post('/login', passport.authenticate('local', {
     });
   });
 
+
+  
   // Mostrar contactos
   app.get('/contactos', isAuthenticated, async (req, res) => {
     try {
