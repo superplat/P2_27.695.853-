@@ -3,10 +3,41 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="csrf-token" content="<%= csrfToken %>">
   <title>Confirmación</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 50px;
+      background-color: #f4f4f9;
+      color: #333;
+    }
+    h1 {
+      color: #4CAF50;
+    }
+    .icon {
+      font-size: 50px;
+      color: #4CAF50;
+    }
+    .btn {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+    }
+    .btn:hover {
+      background-color: #45a049;
+    }
+  </style>
 </head>
 <body>
+  <div class="icon">✔️</div>
   <h1>¡Gracias por tu mensaje!</h1>
   <p>Tu información ha sido recibida correctamente. Nos pondremos en contacto contigo pronto.</p>
+  <a href="<%= baseURL %>" class="btn">Volver al inicio</a>
 </body>
 </html>

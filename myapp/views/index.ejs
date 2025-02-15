@@ -3,9 +3,39 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Alquiler de Equipos para Eventos</title>
+  <meta name="csrf-token" content="<%= csrfToken %>">
+
+  <!-- Metadatos para redes sociales -->
+  <meta property="og:title" content="<%= metaTags.title %>" />
+  <meta property="og:description" content="<%= metaTags.description %>" />
+  <meta property="og:image" content="<%= metaTags.image %>" />
+  <meta property="og:url" content="<%= metaTags.url %>" />
+  <meta property="og:type" content="<%= metaTags.type %>" />
+
+  <meta name="twitter:card" content="<%= metaTags.twitterCard %>" />
+  <meta name="twitter:site" content="<%= metaTags.twitterSite %>" />
+  <meta name="twitter:title" content="<%= metaTags.title %>" />
+  <meta name="twitter:description" content="<%= metaTags.description %>" />
+  <meta name="twitter:image" content="<%= metaTags.image %>" />
+  
+  <title><%= metaTags.title %></title> <!-- Usamos el título de los metadatos -->
+
   <link rel="stylesheet" href="/stylesheets/style.css">
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> 
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script> <!-- Incluye reCAPTCHA -->
+
+  <script>
+    const baseURL = '<%= baseURL %>'; // Aquí se usa la variable baseURL
+    const recaptchaSiteKey = '<%= recaptchaSiteKey %>'; // Aquí se usa la variable recaptchaSiteKey
+    console.log(baseURL); // Para verificar que se está pasando correctamente
+    console.log(recaptchaSiteKey); // Para verificar que se está pasando correctamente
+  </script>
+
+
+  <!-- Inclusión de jQuery -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 
  <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-M7LRJFBSVK"></script>
@@ -107,8 +137,6 @@
 
 
 
-
-
     </section>
 
     <!-- Google Maps -->
@@ -118,62 +146,101 @@
       <div id="google-map" style="width: 100%; height: 400px;"></div>
     </section>
 
-   <!-- Contacto -->
-<section id="contact">
-  <h2>Contacto</h2>
-  <p>Si tienes alguna pregunta o deseas obtener más información, no dudes en contactarnos mediante el siguiente formulario.</p>
+ 
 
-  <form id="contactForm" action="/add_contact" method="post">
-    <label for="email">Correo Electrónico:</label>
-    <input type="email" id="email" name="email" placeholder="Tu correo electrónico" required>
+  <!-- Contacto -->
+  <section id="contact">
+    <h2>Contacto</h2>
+    <p>Si tienes alguna pregunta o deseas obtener más información, no dudes en contactarnos mediante el siguiente formulario.</p>
 
-    <label for="nombre">Nombre:</label>
-    <input type="text" id="nombre" name="nombre" placeholder="Tu nombre completo" required>
+    <form id="contactForm" action="/contactos/add" method="post">
+      <!-- Token CSRF -->
+      <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+      
+      <label for="email">Correo Electrónico:</label>
+      <input type="email" id="email" name="email" placeholder="Tu correo electrónico" required>
+      
+      <label for="nombre">Nombre:</label>
+      <input type="text" id="nombre" name="nombre" placeholder="Tu nombre completo" required>
+      
+      <label for="comentario">Comentario:</label>
+      <textarea id="comentario" name="comentario" placeholder="Escribe tu comentario aquí..." rows="4" required></textarea>
 
-    <label for="comentario">Comentario:</label>
-    <textarea id="comentario" name="comentario" placeholder="Escribe tu comentario aquí..." rows="4" required></textarea>
+      <!-- Botón de envío -->
+      <button type="submit">Enviar</button>
+    </form>
+  </section>
 
-    <!-- Campo oculto para el token de reCAPTCHA -->
-    <input type="hidden" id="recaptchaResponse" name="g-recaptcha-response">
+  <footer>
+    <p>&copy; 2024 Created by Hector Arevalo</p>
+  </footer>
 
-     <!-- Botón con rastreo de evento -->
-     <button type="submit" onclick="gtag('event', 'click', {
-      'event_category': 'Formulario de contacto',
-      'event_label': 'Botón Enviar',
-      'value': 1
-    });">Enviar</button>
-  </form>
-</section>
+  <!-- Script para manejar el formulario con Axios y reCAPTCHA v3 -->
+  <script>
+   document.getElementById('contactForm').addEventListener('submit', function (event) {
+  event.preventDefault(); // Prevenir el envío tradicional del formulario
 
-<footer>
-  <p>&copy; 2024 Created by Hector Arevalo</p>
-</footer>
+  // Obtener el token CSRF
+  const csrfToken = document.querySelector('input[name="_csrf"]').value;
 
-<!-- Agrega la biblioteca de reCAPTCHA -->
-<script src="https://www.google.com/recaptcha/api.js?render=6LcnyLQqAAAAAMdRFos5Rjwo2Ncdv6Vf5A4MnMyv"></script>
+  // Ejecutar reCAPTCHA v3
+  grecaptcha.ready(function () {
+    grecaptcha.execute('6LcnyLQqAAAAAMdRFos5Rjwo2Ncdv6Vf5A4MnMyv', { action: 'submit' }).then(function (token) {
+      // Obtener datos del formulario como un objeto JSON
+      const formData = {
+        nombre: document.getElementById('nombre').value,
+        email: document.getElementById('email').value,
+        comentario: document.getElementById('comentario').value,
+        'g-recaptcha-response': token // Agregar el token de reCAPTCHA
+      };
 
+      // 🔍 Verificar los datos antes de enviarlos
+      console.log('Datos del formulario:', formData);
 
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-<!-- Script para manejar reCAPTCHA -->
-<script>
-  document.getElementById('contactForm').addEventListener('submit', function (event) {
-    event.preventDefault(); // Prevenir el envío inmediato del formulario
-
-    grecaptcha.ready(function () {
-      grecaptcha.execute('6LcnyLQqAAAAAMdRFos5Rjwo2Ncdv6Vf5A4MnMyv', { action: 'submit' }).then(function (token) {
-        document.getElementById('recaptchaResponse').value = token; // Asignar el token al campo oculto
-        event.target.submit(); // Enviar el formulario después de asignar el token
-      }).catch(function (error) {
-        Swal.fire({
-          icon: 'error',
-          title: 'Error',
-          text: 'No se pudo verificar el reCAPTCHA. Inténtalo de nuevo.',
-        });
+      // Rastrear evento de Google Analytics antes de enviar el formulario
+      gtag('event', 'submit', {
+        'event_category': 'Formulario de contacto',
+        'event_label': 'Botón Enviar',
+        'value': 1
       });
+
+      
+ // Enviar datos del formulario usando Axios
+axios.post(`${baseURL}/contactos/add`, formData, {
+  headers: {
+    'Content-Type': 'application/json', // Especificar el tipo de contenido
+    'X-CSRF-Token': csrfToken // Incluir el token CSRF
+  }
+})
+.then(response => {
+  if (response.data.success) {
+    Swal.fire('Éxito', 'Datos enviados correctamente', 'success');
+    window.location.href = `${baseURL}/success`; // Redirigir a la página de éxito
+  } else {
+    Swal.fire('Error', response.data.message || 'Error al enviar el formulario', 'error');
+  }
+})
+.catch(error => {
+  if (error.response) {
+    // El servidor respondió con un código de estado fuera del rango 2xx
+    Swal.fire('Error', error.response.data.message || 'Error al enviar el formulario', 'error');
+  } else if (error.request) {
+    // La solicitud fue hecha pero no se recibió respuesta
+    Swal.fire('Error', 'No se recibió respuesta del servidor', 'error');
+  } else {
+    // Algo más causó el error
+    Swal.fire('Error', error.message || 'Error desconocido', 'error');
+  }
+  console.error('Error:', error);
+});
+
     });
   });
-</script>
+});
+  </script>
+
+</body>
+</html>
 
 <!-- Script para Google Maps -->
 <script>

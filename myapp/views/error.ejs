@@ -1,3 +1,20 @@
-<h1><%= message %></h1>
-<h2><%= error.status %></h2>
-<pre><%= error.stack %></pre>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="csrf-token" content="<%= csrfToken || '' %>"> <!-- CSRF token -->
+  <title>Error</title>
+</head>
+<body>
+  <h1><%= message %></h1>
+  
+  <!-- Mostrar detalles del error solo en desarrollo -->
+  <% if (error && process.env.NODE_ENV === 'development') { %>
+    <h2>Código de error: <%= error.status %></h2>
+    <pre><%= error.stack %></pre>
+  <% } else { %>
+    <p>Ocurrió un error al procesar tu solicitud. Por favor, inténtalo nuevamente más tarde.</p>
+  <% } %>
+</body>
+</html>
