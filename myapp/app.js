@@ -464,6 +464,9 @@ app.get('/success', (req, res) => {
       // Registrar la respuesta completa para diagnóstico
       console.log('Respuesta de reCAPTCHA:', response.data);
 
+
+
+
       // Validar respuesta, score y acción esperada
       if (!success) {
         console.error('Falló la validación reCAPTCHA:', errors);
@@ -480,10 +483,12 @@ app.get('/success', (req, res) => {
         return false;
       }
 
-      if (hostname !== 'localhost') {
-        console.warn(`Hostname inesperado: ${hostname}.`);
-        return false;
-      }
+     // Validar el hostname (tanto para desarrollo como para producción)
+    const allowedHostnames = ['localhost', 'p2-27-695-853-1.onrender.com'];
+    if (!allowedHostnames.includes(hostname)) {
+      console.warn(`Hostname inesperado: ${hostname}.`);
+      return false;
+    }
 
       console.log('✅ reCAPTCHA validado con éxito.');
       return true;
